@@ -49,7 +49,6 @@ app.post('/user/register', async(req,res) =>{
 
 app.post('/user/login', async(req,res) =>{
 
-    console.log(req.body)
     let user = await User.findOne({email: req.body.email});
 
     if (!user) return res.send('User not found.',404);
