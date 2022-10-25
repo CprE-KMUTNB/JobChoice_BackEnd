@@ -15,6 +15,7 @@ mongoose
 .connect('mongodb+srv://jobchoice:Jobchoice65@jobchoice.4paiwbc.mongodb.net/?retryWrites=true&w=majority',{
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    useFindAndModify:false
 })
 .then(() => console.log('MongoDB connected'));
 
@@ -77,16 +78,16 @@ app.post('/user/login', async(req,res) =>{
     
 });
 
-app.post('/user/update', async (req,res) =>{
+app.post('/user/update/:id', async (req,res,next) =>{
 
-    let user = await User.findOneAndUpdate({email: req.body.email},{
+    let user = await User.findOneAndUpdate({_id:req.params.id},{
         $set:{
-            firstName: req.body.firstname,
-            lastName: req.body.lastname,
-            email: req.body.email,
-            aboutme: req.body.aboutme
-        }
+        email: req.body.email,
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        aboutme: req.body.aboutme}
     });
+    
     res.send({
         message: 'Success',
         user: user,
