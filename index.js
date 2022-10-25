@@ -1,5 +1,3 @@
-//Commit TEST
-
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
@@ -8,6 +6,7 @@ const jwt = require('jsonwebtoken');
 
 const { User } = require('./model/user');
 const auth = require('./middleware/auth');
+const { request } = require('https');
 
 
 app.use(express.json());
@@ -64,7 +63,8 @@ app.post('/user/login', async(req,res) =>{
             code: user.code,
             firstName: user.firstname,
             lastName: user.lastname,
-            email: user.email
+            email: user.email,
+            aboutme: user.aboutme
         },
         'eyJ1c2VybmFtZSI6InRlc3QiLCJwYXNzd29yZCI6IjEyMzQiLCJmaXJzdG5hbWUiOiJNYWtrcmFwb25nIiwibGFzdG5hbWUiOiJTb21ib29uIiwiY29udHJhY3QiOiIwOTU5MjY5OTg2IiwiYWxnIjoiSFMyNTYifQ',
     );
@@ -77,9 +77,27 @@ app.post('/user/login', async(req,res) =>{
     
 });
 
+app.post('/user/update', async (req,res) =>{
+
+    let user = await User.findOneAndUpdate({email: req.body.email},{
+        $set:{
+            firstName: req.body.firstname,
+            lastName: req.body.lastname,
+            email: req.body.email,
+            aboutme: req.body.aboutme
+        }
+    });
+    res.send({
+        message: 'Success',
+        user: user,
+    });
+
+})
+  
 app.get('/protected',auth, (req, res) => {
     res.send('access Success');
 });
+
 
 const server = app.listen(process.env.PORT || 5000, function(){
     console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
