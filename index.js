@@ -80,7 +80,7 @@ app.post('/user/login', async(req,res) =>{
     
 });
 
-app.post('/user/update/:id', async (req,res,next) =>{
+app.post('/user/update/:id', async (req,res) =>{
 
     let user = await User.findOneAndUpdate({_id:req.params.id},{
         $set:{
@@ -93,7 +93,19 @@ app.post('/user/update/:id', async (req,res,next) =>{
         message: 'Success',
         user: user,
     });
+})
 
+app.delete('/user/delete/:id', async (req,res,next) =>{
+    User.find({_id: req.params.id}).deleteOne(function(err, data){
+        if(err) throw err;
+          res.send('Deleted'); 
+      }); 
+})
+
+app.get('/user/get/:id', async (req,res,next) =>{
+    User.findById(req.params.id).then(result => {
+        res.status(200).send(result)
+    })
 })
   
 app.get('/protected',auth, (req, res) => {
