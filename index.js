@@ -50,7 +50,7 @@ app.post('/user/register', async(req,res) =>{
 });
 
 app.post('/user/login', async(req,res) =>{
-
+    
     let user = await User.findOne({email: req.body.email});
 
     if (!user) return res.send('User not found.',404);
@@ -59,7 +59,6 @@ app.post('/user/login', async(req,res) =>{
     if (!validPassword) return res.status(400).send('Invalid email or password.');
 
     delete user.password;
-
     const token = jwt.sign(
         {
             _id: user._id,
@@ -74,7 +73,7 @@ app.post('/user/login', async(req,res) =>{
 
     res.send({
         message: 'Logged In',
-        user: user,
+        user: user._id,
         token: token,
     });
     
