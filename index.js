@@ -14,6 +14,7 @@ app.use(express.json());
 mongoose
 .connect('mongodb+srv://jobchoice:Jobchoice65@jobchoice.4paiwbc.mongodb.net/?retryWrites=true&w=majority',{
     useNewUrlParser: true,
+    useFindAndModify: false,
     useUnifiedTopology: true,
     useFindAndModify:false
 })
@@ -34,7 +35,8 @@ app.post('/user/register', async(req,res) =>{
             code: createdUser.code,
             email: createdUser.email,
             firstname: createdUser.firstname,
-            lastname: createdUser.lastname
+            lastname: createdUser.lastname,
+            aboutme: user.aboutme
             
         },
         'eyJ1c2VybmFtZSI6InRlc3QiLCJwYXNzd29yZCI6IjEyMzQiLCJmaXJzdG5hbWUiOiJNYWtrcmFwb25nIiwibGFzdG5hbWUiOiJTb21ib29uIiwiY29udHJhY3QiOiIwOTU5MjY5OTg2IiwiYWxnIjoiSFMyNTYifQ',
@@ -85,9 +87,8 @@ app.post('/user/update/:id', async (req,res,next) =>{
         email: req.body.email,
         firstname: req.body.firstname,
         lastname: req.body.lastname,
-        aboutme: req.body.aboutme}
-    });
-    
+        aboutme: req.body.aboutme, }
+        });
     res.send({
         message: 'Success',
         user: user,
