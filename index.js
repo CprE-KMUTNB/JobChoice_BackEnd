@@ -120,15 +120,17 @@ app.post("/user/post", (req, res) => {
 //--------------------------------------------------------------------------------------------------------
 app.post("/user/post2", (req, res) => {
     console.log(req.body)
-    var myData = new UserPost2(req.body);
-    myData.save()
-    .then(item => {
-    res.send("item saved to database");
-    })
-    .catch(err => {
-    res.status(400).send("unable to save to database");
+    var myData = new UserPost2({
+        user: req.body.user,
+        JobTitle: req.body.JobTitle,
+        ability: req.body.ability,
+        details: req.body.delete,
+        SalaryNeed: req.body.SalaryNeed,
+        contact: req.body.contact
     });
-   });
+    const val = myData.save()
+    res.json(val)
+})
 //--------------------------------------------------------------------------------------------------------
 const server = app.listen(process.env.PORT || 5000, function(){
     console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
