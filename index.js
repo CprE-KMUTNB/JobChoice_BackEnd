@@ -112,15 +112,17 @@ app.get('/protected',auth, (req, res) => {
 });
 //--------------------------------------------------------------------------------------------------------
 app.post("/user/post", (req, res) => {
-    var myData = new UserPost(req.body);
-    myData.save()
-    .then(item => {
-    res.send("item saved to database");
-    })
-    .catch(err => {
-    res.status(400).send("unable to save to database");
+    var myData = new UserPost({
+        user: req.body.user,
+        JobTitle: req.body.JobTitle,
+        requirement: req.body.requirement,
+        details: req.body.details,
+        Salary: req.body.Salary,
+        contact: req.body.contact
     });
-   });
+    const val = myData.save()
+    res.json(val)
+})
 //--------------------------------------------------------------------------------------------------------
 app.post("/user/post2", (req, res) => {
     console.log(req.body)
