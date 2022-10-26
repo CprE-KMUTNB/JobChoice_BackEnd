@@ -72,7 +72,7 @@ app.post('/user/login', async(req,res) =>{
         },
         'eyJ1c2VybmFtZSI6InRlc3QiLCJwYXNzd29yZCI6IjEyMzQiLCJmaXJzdG5hbWUiOiJNYWtrcmFwb25nIiwibGFzdG5hbWUiOiJTb21ib29uIiwiY29udHJhY3QiOiIwOTU5MjY5OTg2IiwiYWxnIjoiSFMyNTYifQ',
     );
-    return res.status(200).json(user._id)
+    res.send(user._id)
 });
 //--------------------------------------------------------------------------------------------------------
 app.post('/user/update/:id', async (req,res) =>{
@@ -119,6 +119,7 @@ app.post("/user/post", (req, res) => {
    });
 //--------------------------------------------------------------------------------------------------------
 app.post("/user/post2", (req, res) => {
+    console.log(req.body)
     var myData = new UserPost2(req.body);
     myData.save()
     .then(item => {
