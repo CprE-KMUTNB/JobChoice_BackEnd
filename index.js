@@ -5,6 +5,8 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 const { User } = require('./model/user');
+const { UserPost } = require('./model/user');
+const { UserPost2 } = require('./model/user')
 const auth = require('./middleware/auth');
 const { request } = require('https');
 
@@ -19,7 +21,7 @@ mongoose
     useFindAndModify:false
 })
 .then(() => console.log('MongoDB connected'));
-
+//--------------------------------------------------------------------------------------------------------
 app.post('/user/register', async(req,res) =>{
     const newUser = req.body;
 
@@ -36,7 +38,7 @@ app.post('/user/register', async(req,res) =>{
             email: createdUser.email,
             firstname: createdUser.firstname,
             lastname: createdUser.lastname,
-            aboutme: user.aboutme
+            aboutme: createdUser.aboutme
             
         },
         'eyJ1c2VybmFtZSI6InRlc3QiLCJwYXNzd29yZCI6IjEyMzQiLCJmaXJzdG5hbWUiOiJNYWtrcmFwb25nIiwibGFzdG5hbWUiOiJTb21ib29uIiwiY29udHJhY3QiOiIwOTU5MjY5OTg2IiwiYWxnIjoiSFMyNTYifQ',
@@ -48,7 +50,7 @@ app.post('/user/register', async(req,res) =>{
         token: token,
     });
 });
-
+//--------------------------------------------------------------------------------------------------------
 app.post('/user/login', async(req,res) =>{
     
     let user = await User.findOne({email: req.body.email});
@@ -70,15 +72,9 @@ app.post('/user/login', async(req,res) =>{
         },
         'eyJ1c2VybmFtZSI6InRlc3QiLCJwYXNzd29yZCI6IjEyMzQiLCJmaXJzdG5hbWUiOiJNYWtrcmFwb25nIiwibGFzdG5hbWUiOiJTb21ib29uIiwiY29udHJhY3QiOiIwOTU5MjY5OTg2IiwiYWxnIjoiSFMyNTYifQ',
     );
-
-    res.send({
-        message: 'Logged In',
-        user: user._id,
-        token: token,
-    });
-    
+    return res.status(200).json(user._id)
 });
-
+//--------------------------------------------------------------------------------------------------------
 app.post('/user/update/:id', async (req,res) =>{
 
     let user = await User.findOneAndUpdate({_id:req.params.id},{
@@ -93,25 +89,46 @@ app.post('/user/update/:id', async (req,res) =>{
         user: user,
     });
 })
-
+//--------------------------------------------------------------------------------------------------------
 app.delete('/user/delete/:id', async (req,res,next) =>{
     User.find({_id: req.params.id}).deleteOne(function(err, data){
         if(err) throw err;
           res.send('Deleted'); 
       }); 
 })
-
+//--------------------------------------------------------------------------------------------------------
 app.get('/user/get/:id', async (req,res,next) =>{
     User.findById(req.params.id).then(result => {
         res.status(200).send(result)
     })
 })
-  
+//--------------------------------------------------------------------------------------------------------
 app.get('/protected',auth, (req, res) => {
     res.send('access Success');
 });
-
-
+//--------------------------------------------------------------------------------------------------------
+app.post("/user/post", (req, res) => {
+    var myData = new UserPost(req.body);
+    myData.save()
+    .then(item => {
+    res.send("item saved to database");
+    })
+    .catch(err => {
+    res.status(400).send("unable to save to database");
+    });
+   });
+//--------------------------------------------------------------------------------------------------------
+app.post("/user/post2", (req, res) => {
+    var myData = new UserPost2(req.body);
+    myData.save()
+    .then(item => {
+    res.send("item saved to database");
+    })
+    .catch(err => {
+    res.status(400).send("unable to save to database");
+    });
+   });
+//--------------------------------------------------------------------------------------------------------
 const server = app.listen(process.env.PORT || 5000, function(){
     console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
 });
