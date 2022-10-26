@@ -72,7 +72,11 @@ app.post('/user/login', async(req,res) =>{
         },
         'eyJ1c2VybmFtZSI6InRlc3QiLCJwYXNzd29yZCI6IjEyMzQiLCJmaXJzdG5hbWUiOiJNYWtrcmFwb25nIiwibGFzdG5hbWUiOiJTb21ib29uIiwiY29udHJhY3QiOiIwOTU5MjY5OTg2IiwiYWxnIjoiSFMyNTYifQ',
     );
-    res.send(user._id)
+    res.send({
+        message: 'Login success',
+        user: user,
+        token: token,
+    });
 });
 //--------------------------------------------------------------------------------------------------------
 app.post('/user/update/:id', async (req,res) =>{
