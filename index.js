@@ -102,7 +102,7 @@ app.delete('/user/delete/:id', async (req,res,next) =>{
 })
 //--------------------------------------------------------------------------------------------------------
 app.get('/user/get/:id', async (req,res,next) =>{
-    let user = await User.findOne({_id: req.body.id});
+    let user = await User.findOne({_id: req.params.id});
     res.send(user);
 })
 //--------------------------------------------------------------------------------------------------------
