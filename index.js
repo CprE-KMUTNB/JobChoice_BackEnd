@@ -9,6 +9,7 @@ const { UserPost } = require('./model/user');
 const { UserPost2 } = require('./model/user')
 const auth = require('./middleware/auth');
 const { request } = require('https');
+const { ObjectID } = require('bson');
 
 
 app.use(express.json());
@@ -43,7 +44,6 @@ app.post('/user/register', async(req,res) =>{
         },
         'eyJ1c2VybmFtZSI6InRlc3QiLCJwYXNzd29yZCI6IjEyMzQiLCJmaXJzdG5hbWUiOiJNYWtrcmFwb25nIiwibGFzdG5hbWUiOiJTb21ib29uIiwiY29udHJhY3QiOiIwOTU5MjY5OTg2IiwiYWxnIjoiSFMyNTYifQ',
     );
-
     res.send({
         message: 'Create user successfully',
         user: createdUser,
@@ -102,9 +102,8 @@ app.delete('/user/delete/:id', async (req,res,next) =>{
 })
 //--------------------------------------------------------------------------------------------------------
 app.get('/user/get/:id', async (req,res,next) =>{
-    User.findById(req.params.id).then(result => {
-        res.status(200).send(result)
-    })
+    let user = await User.findOne({_id: req.body.id});
+    res.send(user);
 })
 //--------------------------------------------------------------------------------------------------------
 app.get('/protected',auth, (req, res) => {
