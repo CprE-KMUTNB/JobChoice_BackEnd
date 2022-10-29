@@ -98,6 +98,7 @@ app.delete('/user/delete/:email', async (req,res,next) =>{
     User.find({email: req.params.email}).deleteOne(function(err, data){
         if(err) throw err;
       }); 
+    res.status(200).send("Deleted")
 })
 //--------------------------------------------------------------------------------------------------------
 app.get('/user/get/:email', async (req,res,next) =>{
