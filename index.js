@@ -79,17 +79,17 @@ app.post('/user/login', async(req,res) =>{
     });
 });
 //--------------------------------------------------------------------------------------------------------
-app.post('/user/update/:id', async (req,res) =>{
+app.post('/user/update/:email', async (req,res) =>{
 
-    let user = await User.findOneAndUpdate({_id:req.params.id},{
+    let user = await User.findOneAndUpdate({email:req.params.email},{
         $set:{
         email: req.body.email,
         firstname: req.body.firstname,
         lastname: req.body.lastname,
         aboutme: req.body.aboutme, }
         });
-    res.send({
-        message: 'Success',
+    res.status(200).send({
+        message: 'Update Success',
         user: user,
     });
 })
