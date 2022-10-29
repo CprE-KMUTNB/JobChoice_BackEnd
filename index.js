@@ -94,16 +94,15 @@ app.post('/user/update/:id', async (req,res) =>{
     });
 })
 //--------------------------------------------------------------------------------------------------------
-app.delete('/user/delete/:id', async (req,res,next) =>{
-    User.find({_id: req.params.id}).deleteOne(function(err, data){
+app.delete('/user/delete/:email', async (req,res,next) =>{
+    User.find({email: req.params.email}).deleteOne(function(err, data){
         if(err) throw err;
-          res.send('Deleted'); 
       }); 
 })
 //--------------------------------------------------------------------------------------------------------
-app.get('/user/get/:id', async (req,res,next) =>{
-    let user = await User.findOne({_id: req.params.id});
-    res.send(user);
+app.get('/user/get/:email', async (req,res,next) =>{
+    let user = await User.findOne({email: req.params.email});
+    res.status(200).send(user);
 })
 //--------------------------------------------------------------------------------------------------------
 app.get('/protected',auth, (req, res) => {
