@@ -106,6 +106,14 @@ app.get('/user/get/:email', async (req,res,next) =>{
     res.status(200).send(user);
 })
 //--------------------------------------------------------------------------------------------------------
+app.get('/user/get/workerfinding',(req,res,next) =>{
+    UserPost2.find().then(result => {
+        res.status(200).json({
+            user:result
+        });
+    })
+})
+//--------------------------------------------------------------------------------------------------------
 app.get('/protected',auth, (req, res) => {
     res.send('access Success');
 });
@@ -120,7 +128,7 @@ app.post("/user/post", (req, res) => {
         contact: req.body.contact
     });
     const val = myData.save()
-    res.json(val)
+    res.status(200).send("Post Success")
 })
 //--------------------------------------------------------------------------------------------------------
 app.post("/user/post2", (req, res) => {
@@ -134,7 +142,7 @@ app.post("/user/post2", (req, res) => {
         contact: req.body.contact
     });
     const val = myData.save()
-    res.json(val)
+    res.status(200).send("Post Success")
 })
 //--------------------------------------------------------------------------------------------------------
 const server = app.listen(process.env.PORT || 5000, function(){
