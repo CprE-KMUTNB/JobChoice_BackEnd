@@ -88,6 +88,16 @@ app.post('/user/update/:email', async (req,res) =>{
         lastname: req.body.lastname,
         aboutme: req.body.aboutme, }
         });
+    let userPost1 = await UserPost.findOneAndUpdate({email:req.params.email},{
+        $set:{
+            email:req.body.email
+        }
+    })
+    let userPost2 = await UserPost2.findOneAndUpdate({email:req.params.email},{
+        $set:{
+            email:req.body.email
+        }
+    })
     res.status(200).send({
         message: 'Update Success',
         user: user,
@@ -106,11 +116,9 @@ app.get('/user/get/:email', async (req,res,next) =>{
     res.status(200).send(user);
 })
 //--------------------------------------------------------------------------------------------------------
-app.get('/user/get/workerfinding',(req,res,next) =>{
-    UserPost2.find().then(result => {
-        res.status(200).json({
-            user:result
-        });
+app.get('/user/get/workerfinding',async (req,res,next) =>{
+    UserPost.find({}).then((result) => {
+        res.send(result)
     })
 })
 //--------------------------------------------------------------------------------------------------------
@@ -120,6 +128,8 @@ app.get('/protected',auth, (req, res) => {
 //--------------------------------------------------------------------------------------------------------
 app.post("/user/post", (req, res) => {
     var myData = new UserPost({
+        post:"findingworker",
+        email:req.body.email,
         user: req.body.user,
         JobTitle: req.body.JobTitle,
         requirement: req.body.requirement,
@@ -134,6 +144,8 @@ app.post("/user/post", (req, res) => {
 app.post("/user/post2", (req, res) => {
     console.log(req.body)
     var myData = new UserPost2({
+        post:"findingjob",
+        email:req.body.email,
         user: req.body.user,
         JobTitle: req.body.JobTitle,
         ability: req.body.ability,
@@ -150,3 +162,32 @@ const server = app.listen(process.env.PORT || 5000, function(){
 });
 
 module.express = server;
+
+
+// {
+//     "email":"bill@email.com",
+//     "user":"AIS",
+//     "JobTitle":"Programmer",
+//     "requirement":"M.6",
+//     "details":"None",
+//     "Salary":"20000",
+//     "contact":"None"
+// }
+
+// {
+//     "email":"bill@email.com",
+//     "user":"AIS",
+//     "JobTitle":"Programmer",
+//     "ability":"Can run",
+//     "details":"None",
+//     "SalaryNeed":"20000",
+//     "contact":"None"
+// }
+
+// {
+//     "email":"surachai@email.com",
+//     "firstname":"Surachai",
+//     "lastname":"Santiphap",
+//     "password":"123",
+//     "aboutme":"Male"
+// }
