@@ -130,7 +130,7 @@ app.get('/protected',auth, (req, res) => {
 });
 //--------------------------------------------------------------------------------------------------------
 app.post("/user/post", (req, res) => {
-    var myData = new UserPost({
+    var myPost = new UserPost({
         email:req.body.email,
         user: req.body.user,
         JobTitle: req.body.JobTitle,
@@ -141,17 +141,12 @@ app.post("/user/post", (req, res) => {
     });
     if(err) 
         res.send(err);
-    res.status(200).send({
-        message: 'Post Success',
-        user: myData,
-    })
-    myData.save()
+    res.status(200).send(myPost)
+    myPost.save()
 })
 //--------------------------------------------------------------------------------------------------------
 app.post("/user/post2", (req, res) => {
-    console.log(req.body)
-    var myData = new UserPost2({
-        email:req.body.email,
+    var myPost = new UserPost2({
         user: req.body.user,
         JobTitle: req.body.JobTitle,
         ability: req.body.ability,
@@ -161,11 +156,8 @@ app.post("/user/post2", (req, res) => {
     });
     if(err) 
         res.send(err);
-    res.status(200).send({
-        message: 'Post Success',
-        user: myData,
-    })
-    myData.save()
+    res.status(200).send(myPost)
+    myPost.save()
 })
 //--------------------------------------------------------------------------------------------------------
 const server = app.listen(process.env.PORT || 5000, function(){
