@@ -145,6 +145,7 @@ app.post("/user/post", (req, res) => {
 //--------------------------------------------------------------------------------------------------------
 app.post("/user/post2", (req, res) => {
     var myPost = new UserPost2({
+        email:req.body.email,
         user: req.body.user,
         JobTitle: req.body.JobTitle,
         ability: req.body.ability,

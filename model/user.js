@@ -19,6 +19,7 @@ const userPost = new mongoose.Schema({
 });
 
 const userPost2 = new mongoose.Schema({
+    email:String,
     user: String,
     JobTitle: String,
     ability: String,
