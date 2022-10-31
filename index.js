@@ -139,10 +139,12 @@ app.post("/user/post", (req, res) => {
         Salary: req.body.Salary,
         contact: req.body.contact
     });
+    if(err) 
+        res.send(err);
     res.status(200).send({
         message: 'Post Success',
         user: myData,
-    });
+    })
     myData.save()
 })
 //--------------------------------------------------------------------------------------------------------
@@ -157,10 +159,12 @@ app.post("/user/post2", (req, res) => {
         SalaryNeed: req.body.SalaryNeed,
         contact: req.body.contact
     });
+    if(err) 
+        res.send(err);
     res.status(200).send({
         message: 'Post Success',
         user: myData,
-    });
+    })
     myData.save()
 })
 //--------------------------------------------------------------------------------------------------------
