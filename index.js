@@ -81,30 +81,30 @@ app.post('/user/login', async(req,res) =>{
 //--------------------------------------------------------------------------------------------------------
 app.post('/user/update/:email', async (req,res) =>{
 
-    let check = User.findOne({email:req.body.email});
-    if (check) return res.send('This email already in use',404);
-
-    let user = await User.findOneAndUpdate({email:req.params.email},{
-        $set:{
-        email: req.body.email,
-        firstname: req.body.firstname,
-        lastname: req.body.lastname,
-        aboutme: req.body.aboutme, }
-        });
-    let userPost1 = await UserPost.findOneAndUpdate({email:req.params.email},{
-        $set:{
-            email:req.body.email
-        }
-    })
-    let userPost2 = await UserPost2.findOneAndUpdate({email:req.params.email},{
-        $set:{
-            email:req.body.email
-        }
-    })
-    res.status(200).send({
-        message: 'Update Success',
-        user: user,
-    });
+    let check = await User.findOne({email:req.body.email});
+    if (!check) {
+        let user = await User.findOneAndUpdate({email:req.params.email},{
+            $set:{
+                email: req.body.email,
+                firstname: req.body.firstname,
+                lastname: req.body.lastname,
+                aboutme: req.body.aboutme, }
+            });
+        let userPost1 = await UserPost.findOneAndUpdate({email:req.params.email},{
+            $set:{
+                mail:req.body.email}
+            })
+        let userPost2 = await UserPost2.findOneAndUpdate({email:req.params.email},{
+            $set:{
+                email:req.body.email}
+            })
+        res.status(200).send({
+            message: 'Update Success',
+            user: user,
+            });
+    }else{
+        res.status(404).send('Email already used');
+    }
 })
 //--------------------------------------------------------------------------------------------------------
 app.delete('/user/delete/:email', async (req,res,next) =>{
