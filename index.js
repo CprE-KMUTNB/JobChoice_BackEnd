@@ -131,6 +131,7 @@ app.get('/protected',auth, (req, res) => {
 //--------------------------------------------------------------------------------------------------------
 app.post("/user/post", (req, res) => {
     var myPost = new UserPost({
+        post:"findingworker",
         email:req.body.email,
         user: req.body.user,
         JobTitle: req.body.JobTitle,
@@ -145,6 +146,7 @@ app.post("/user/post", (req, res) => {
 //--------------------------------------------------------------------------------------------------------
 app.post("/user/post2", (req, res) => {
     var myPost = new UserPost2({
+        post:"findingjob",
         email:req.body.email,
         user: req.body.user,
         JobTitle: req.body.JobTitle,

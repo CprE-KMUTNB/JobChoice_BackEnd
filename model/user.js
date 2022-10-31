@@ -9,6 +9,7 @@ const userSchema = new mongoose.Schema({
 });
 
 const userPost = new mongoose.Schema({
+    post:String,
     email:String,
     user: String,
     JobTitle: String,
@@ -19,6 +20,7 @@ const userPost = new mongoose.Schema({
 });
 
 const userPost2 = new mongoose.Schema({
+    post:String,
     email:String,
     user: String,
     JobTitle: String,
