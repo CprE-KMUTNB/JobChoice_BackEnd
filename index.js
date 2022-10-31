@@ -137,8 +137,11 @@ app.post("/user/post", (req, res) => {
         Salary: req.body.Salary,
         contact: req.body.contact
     });
-    const val = myData.save()
-    res.status(200).send("Post Success")
+    myData.save()
+    res.status(200).send({
+        message: 'Post Success',
+        user: myData,
+    });
 })
 //--------------------------------------------------------------------------------------------------------
 app.post("/user/post2", (req, res) => {
@@ -153,8 +156,11 @@ app.post("/user/post2", (req, res) => {
         SalaryNeed: req.body.SalaryNeed,
         contact: req.body.contact
     });
-    const val = myData.save()
-    res.status(200).send("Post Success")
+    myData.save()
+    res.status(200).send({
+        message: 'Post Success',
+        user: myData,
+    });
 })
 //--------------------------------------------------------------------------------------------------------
 const server = app.listen(process.env.PORT || 5000, function(){
