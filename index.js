@@ -81,7 +81,7 @@ app.post('/user/login', async(req,res) =>{
 //--------------------------------------------------------------------------------------------------------
 app.post('/user/update/:email', async (req,res) =>{
 
-    let check = User.findOne({email:req.params.email});
+    let check = User.findOne({email:req.body.email});
     if (check) return res.send('This email already in use',404);
 
     let user = await User.findOneAndUpdate({email:req.params.email},{
