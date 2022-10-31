@@ -81,6 +81,9 @@ app.post('/user/login', async(req,res) =>{
 //--------------------------------------------------------------------------------------------------------
 app.post('/user/update/:email', async (req,res) =>{
 
+    let check = User.findOne({email:req.params.email});
+    if (check) return res.send('This email already in use',404);
+
     let user = await User.findOneAndUpdate({email:req.params.email},{
         $set:{
         email: req.body.email,
@@ -137,11 +140,11 @@ app.post("/user/post", (req, res) => {
         Salary: req.body.Salary,
         contact: req.body.contact
     });
-    myData.save()
     res.status(200).send({
         message: 'Post Success',
         user: myData,
     });
+    myData.save()
 })
 //--------------------------------------------------------------------------------------------------------
 app.post("/user/post2", (req, res) => {
@@ -156,11 +159,11 @@ app.post("/user/post2", (req, res) => {
         SalaryNeed: req.body.SalaryNeed,
         contact: req.body.contact
     });
-    myData.save()
     res.status(200).send({
         message: 'Post Success',
         user: myData,
     });
+    myData.save()
 })
 //--------------------------------------------------------------------------------------------------------
 const server = app.listen(process.env.PORT || 5000, function(){
@@ -171,7 +174,7 @@ module.express = server;
 
 
 // {
-//     "email":"bill@email.com",
+//     "email":"surachai@email.com",
 //     "user":"AIS",
 //     "JobTitle":"Programmer",
 //     "requirement":"M.6",
@@ -182,7 +185,7 @@ module.express = server;
 
 // {
 //     "email":"bill@email.com",
-//     "user":"AIS",
+//     "user":"Surachai Santiphap",
 //     "JobTitle":"Programmer",
 //     "ability":"Can run",
 //     "details":"None",
