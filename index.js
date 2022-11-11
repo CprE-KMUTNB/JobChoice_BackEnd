@@ -128,7 +128,7 @@ app.get('/user/get/:email', async (req,res,next) =>{
 })
 //--------------------------------------------------------------------------------------------------------
 app.get('/user/get/post/workerfinding',async(req, res) => {
-    var arr = [];
+    var arr = {};
     await UserPost.find({}, function (err, docs) {
         UserPost.countDocuments().then((count_documents) => {
             for(var i = 0; i <= count_documents - 1; i++){
@@ -143,7 +143,7 @@ app.get('/user/get/post/workerfinding',async(req, res) => {
   }); 
   //--------------------------------------------------------------------------------------------------------
 app.get('/user/get/post/jobfinding',async(req, res) => {
-    var arr = [];
+    var arr = {};
     await UserPost2.find({}, function (err, docs) {
         UserPost2.countDocuments().then((count_documents) => {
             for(var i = 0; i <= count_documents - 1; i++){
