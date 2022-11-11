@@ -127,13 +127,26 @@ app.get('/user/get/:email', async (req,res,next) =>{
     res.status(200).send(user);
 })
 //--------------------------------------------------------------------------------------------------------
+app.get('/user/get/allpost/:email', async (req,res,next) =>{
+    var arr = [];
+    await UserPost.find({email:req.params.email}, function (err, docs) {
+        UserPost.countDocuments().then((count_documents) => {
+            for(var i = 0; i <= count_documents - 1; i++){
+                arr[i] = docs[i]
+            }
+            res.status(200).json(arr);
+          }).catch((err) => {
+            res.status(404).send("Cannot get document")
+          })
+        });
+  }); 
+//--------------------------------------------------------------------------------------------------------
 app.get('/user/get/post/workerfinding',async(req, res) => {
     var arr = [];
     await UserPost.find({}, function (err, docs) {
         UserPost.countDocuments().then((count_documents) => {
             for(var i = 0; i <= count_documents - 1; i++){
                 arr[i] = docs[i]
-                console.log("Position " + i + " : " , docs[i])
             }
             res.status(200).json(arr);
           }).catch((err) => {
@@ -148,7 +161,6 @@ app.get('/user/get/post/jobfinding',async(req, res) => {
         UserPost2.countDocuments().then((count_documents) => {
             for(var i = 0; i <= count_documents - 1; i++){
                 arr[i] = docs[i]
-                console.log("Position " + i + " : " , docs[i])
             }
             res.status(200).json(arr);
           }).catch((err) => {
