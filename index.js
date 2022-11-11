@@ -157,17 +157,19 @@ app.get('/user/get/post/jobfinding',(req, res) => {
         });
   }); 
  //--------------------------------------------------------------------------------------------------------
- app.get('/user/get/post/count/:case',(req, res) => {
-    var getCase = req.params.case
+ app.get('/user/get/post/count/:CASE',(req, res) => {
+    var getCase = req.params.CASE
     if(getCase == "1"){
         UserPost.countDocuments().then((count_documents) => {
-            res.status(200).send(count_documents.toString());
+            var myCount = count_documents.toString();
+            res.status(200).send(myCount);
           }).catch((err) => {
             res.status(404).send("Cannot count document")
           })
     }else if(getCase == "2"){
         UserPost2.countDocuments().then((count_documents) => {
-            res.status(200).send(count_documents.toString());
+            var myCount = count_documents.toString();
+            res.status(200).send(myCount);
           }).catch((err) => {
             res.status(404).send("Cannot count document")
           })
