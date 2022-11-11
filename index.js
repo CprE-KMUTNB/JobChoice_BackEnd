@@ -199,7 +199,7 @@ app.post("/user/post2", (req, res) => {
         user: req.body.user,
         JobTitle: req.body.JobTitle,
         ability: req.body.ability,
-        details: req.body.delete,
+        details: req.body.details,
         SalaryNeed: req.body.SalaryNeed,
         contact: req.body.contact
     });
