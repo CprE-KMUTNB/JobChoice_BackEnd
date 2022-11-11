@@ -10,6 +10,7 @@ const { UserPost2 } = require('./model/user')
 const auth = require('./middleware/auth');
 const { request } = require('https');
 const { ObjectID } = require('bson');
+const { count } = require('console');
 
 
 app.use(express.json());
@@ -114,16 +115,64 @@ app.delete('/user/delete/:email', async (req,res,next) =>{
     res.status(200).send("Deleted")
 })
 //--------------------------------------------------------------------------------------------------------
+app.delete('/user/post/delete/:email/:title', async (req,res,next) =>{
+    UserPost.find({email: req.params.email,JobTitle: req.params.title}).deleteOne(function(err, data){
+        if(err) throw err;
+      }); 
+    res.status(200).send("Deleted")
+})
+//--------------------------------------------------------------------------------------------------------
 app.get('/user/get/:email', async (req,res,next) =>{
     let user = await User.findOne({email: req.params.email});
     res.status(200).send(user);
 })
 //--------------------------------------------------------------------------------------------------------
-app.get('/user/get/workerfinding',async (req,res,next) =>{
-    UserPost.find({}).then((result) => {
-        res.send(result)
-    })
-})
+app.get('/user/get/post/workerfinding',(req, res) => {
+    var arr = [];
+    UserPost.find({}, function (err, docs) {
+        UserPost.countDocuments().then((count_documents) => {
+            for(var i = 0; i <= count_documents - 1; i++){
+                arr[i] = docs[i]
+                console.log("Position " + i + " : " , docs[i])
+            }
+            res.status(200).send(arr);
+          }).catch((err) => {
+            res.status(404).send("Cannot get document")
+          })
+        });
+  }); 
+  //--------------------------------------------------------------------------------------------------------
+app.get('/user/get/post/jobfinding',(req, res) => {
+    var arr = [];
+    UserPost2.find({}, function (err, docs) {
+        UserPost2.countDocuments().then((count_documents) => {
+            for(var i = 0; i <= count_documents - 1; i++){
+                arr[i] = docs[i]
+                console.log("Position " + i + " : " , docs[i])
+            }
+            res.status(200).send(arr);
+          }).catch((err) => {
+            res.status(404).send("Cannot get document")
+          })
+        });
+  }); 
+ //--------------------------------------------------------------------------------------------------------
+ app.get('/user/get/post/count/:case',(req, res) => {
+    var getCase = req.params.case
+    if(getCase == "1"){
+        UserPost.countDocuments().then((count_documents) => {
+            res.status(200).send(count_documents.toString());
+          }).catch((err) => {
+            res.status(404).send("Cannot count document")
+          })
+    }else if(getCase == "2"){
+        UserPost2.countDocuments().then((count_documents) => {
+            res.status(200).send(count_documents.toString());
+          }).catch((err) => {
+            res.status(404).send("Cannot count document")
+          })
+    }
+  }); 
 //--------------------------------------------------------------------------------------------------------
 app.get('/protected',auth, (req, res) => {
     res.send('access Success');
@@ -165,7 +214,6 @@ const server = app.listen(process.env.PORT || 5000, function(){
 
 module.express = server;
 
-
 // {
 //     "email":"surachai@email.com",
 //     "user":"AIS",
@@ -193,3 +241,4 @@ module.express = server;
 //     "password":"123",
 //     "aboutme":"Male"
 // }
+
