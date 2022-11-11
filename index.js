@@ -127,9 +127,9 @@ app.get('/user/get/:email', async (req,res,next) =>{
     res.status(200).send(user);
 })
 //--------------------------------------------------------------------------------------------------------
-app.get('/user/get/post/workerfinding',(req, res) => {
+app.get('/user/get/post/workerfinding',async(req, res) => {
     var arr = [];
-    UserPost.find({}, function (err, docs) {
+    await UserPost.find({}, function (err, docs) {
         UserPost.countDocuments().then((count_documents) => {
             for(var i = 0; i <= count_documents - 1; i++){
                 arr[i] = docs[i]
@@ -142,9 +142,9 @@ app.get('/user/get/post/workerfinding',(req, res) => {
         });
   }); 
   //--------------------------------------------------------------------------------------------------------
-app.get('/user/get/post/jobfinding',(req, res) => {
+app.get('/user/get/post/jobfinding',async(req, res) => {
     var arr = [];
-    UserPost2.find({}, function (err, docs) {
+    await UserPost2.find({}, function (err, docs) {
         UserPost2.countDocuments().then((count_documents) => {
             for(var i = 0; i <= count_documents - 1; i++){
                 arr[i] = docs[i]
@@ -157,17 +157,17 @@ app.get('/user/get/post/jobfinding',(req, res) => {
         });
   }); 
  //--------------------------------------------------------------------------------------------------------
- app.get('/user/get/post/count/:CASE',(req, res) => {
+ app.get('/user/get/post/count/:CASE',async(req, res) => {
     var getCase = req.params.CASE
     if(getCase == "1"){
-        UserPost.countDocuments().then((count_documents) => {
+        await UserPost.countDocuments().then((count_documents) => {
             var myCount = count_documents.toString();
             res.status(200).send(myCount);
           }).catch((err) => {
             res.status(404).send("Cannot count document")
           })
     }else if(getCase == "2"){
-        UserPost2.countDocuments().then((count_documents) => {
+        await UserPost2.countDocuments().then((count_documents) => {
             var myCount = count_documents.toString();
             res.status(200).send(myCount);
           }).catch((err) => {
