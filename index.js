@@ -52,14 +52,10 @@ app.post('/user/register', async(req,res) =>{
 });
 //--------------------------------------------------------------------------------------------------------
 app.post('/user/login', async(req,res) =>{
-    
     let user = await User.findOne({email: req.body.email});
-
     if (!user) return res.send('User not found.',404);
-
     const validPassword = await bcrypt.compare(req.body.password, user.password);
     if (!validPassword) return res.status(400).send('Invalid email or password.');
-
     delete user.password;
     const token = jwt.sign(
         {
