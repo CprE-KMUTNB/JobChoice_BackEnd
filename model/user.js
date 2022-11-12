@@ -17,7 +17,7 @@ const userPost = new mongoose.Schema({
     details: String,
     Salary: String,
     contact: String,
-    file:File
+    file:String
 });
 
 const userPost2 = new mongoose.Schema({
@@ -29,7 +29,7 @@ const userPost2 = new mongoose.Schema({
     details: String,
     SalaryNeed: String,
     contact: String,
-    file:File
+    file:String
 });
 
 const User = mongoose.model('email', userSchema)
