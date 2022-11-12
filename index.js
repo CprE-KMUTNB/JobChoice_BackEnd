@@ -214,7 +214,8 @@ app.post("/user/post", (req, res) => {
         requirement: req.body.requirement,
         details: req.body.details,
         Salary: req.body.Salary,
-        contact: req.body.contact
+        contact: req.body.contact,
+        file:req.body.file
     });
     res.status(200).send(myPost)
     myPost.save()
@@ -229,7 +230,8 @@ app.post("/user/post2", (req, res) => {
         ability: req.body.ability,
         details: req.body.details,
         SalaryNeed: req.body.SalaryNeed,
-        contact: req.body.contact
+        contact: req.body.contact,
+        file:req.body.file
     });
     res.status(200).send(myPost)
     myPost.save()
