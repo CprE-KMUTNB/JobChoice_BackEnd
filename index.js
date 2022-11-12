@@ -127,7 +127,7 @@ app.get('/user/get/:email', async (req,res,next) =>{
     res.status(200).send(user);
 })
 //--------------------------------------------------------------------------------------------------------
-app.get('/user/get/all/post/workerfinding/:email', async (req,res,next) =>{
+app.get('/user/get/all/post/worker/:email', async (req,res,next) =>{
     var arr = [];
     await UserPost.find({email:req.params.email}, function (err, docs) {
         UserPost.countDocuments({email:req.params.email}).then((count_documents) => {
@@ -141,7 +141,7 @@ app.get('/user/get/all/post/workerfinding/:email', async (req,res,next) =>{
         });
   }); 
   //--------------------------------------------------------------------------------------------------------
-app.get('/user/get/all/post/jobfinding/:email', async (req,res,next) =>{
+app.get('/user/get/all/post/job/:email', async (req,res,next) =>{
     var arr = [];
     await UserPost2.find({email:req.params.email}, function (err, docs) {
         UserPost2.countDocuments({email:req.params.email}).then((count_documents) => {
@@ -183,7 +183,7 @@ app.get('/user/get/all/post/jobfinding',async(req, res) => {
         });
   }); 
   //--------------------------------------------------------------------------------------------------------
- app.get('/user/get/all/post/workerfinding/count/:email',async(req, res) => {
+ app.get('/user/get/all/post/worker/count/:email',async(req, res) => {
     await UserPost.countDocuments({email:req.params.email}).then((count_documents) => {
         res.status(200).send({count : count_documents.toString()});
       }).catch((err) => {
@@ -191,7 +191,7 @@ app.get('/user/get/all/post/jobfinding',async(req, res) => {
       });
   }); 
   //--------------------------------------------------------------------------------------------------------
- app.get('/user/get/all/post/jobfinding/count/:email',async(req, res) => {
+ app.get('/user/get/all/post/job/count/:email',async(req, res) => {
     await UserPost2.countDocuments({email:req.params.email}).then((count_documents) => {
         res.status(200).send({count : count_documents.toString()});
       }).catch((err) => {
