@@ -40,7 +40,8 @@ app.post('/user/register', async(req,res) =>{
             email: createdUser.email,
             firstname: createdUser.firstname,
             lastname: createdUser.lastname,
-            aboutme: createdUser.aboutme
+            aboutme: createdUser.aboutme,
+            file:createdUser.file
             
         },
         'eyJ1c2VybmFtZSI6InRlc3QiLCJwYXNzd29yZCI6IjEyMzQiLCJmaXJzdG5hbWUiOiJNYWtrcmFwb25nIiwibGFzdG5hbWUiOiJTb21ib29uIiwiY29udHJhY3QiOiIwOTU5MjY5OTg2IiwiYWxnIjoiSFMyNTYifQ',
@@ -79,6 +80,16 @@ app.post('/user/login', async(req,res) =>{
         token: token,
     });
 });
+//--------------------------------------------------------------------------------------------------------
+app.post('/user/profile/update/:email', async (req,res) =>{
+    let user = await User.findOneAndUpdate({email:req.params.email},{
+        $set:{
+            file:req.body.file }
+        });
+    res.status(200).send({
+        message: 'Update Profile Success'
+        });
+})
 //--------------------------------------------------------------------------------------------------------
 app.post('/user/update/:email', async (req,res) =>{
 

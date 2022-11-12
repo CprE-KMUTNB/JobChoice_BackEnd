@@ -5,7 +5,8 @@ const userSchema = new mongoose.Schema({
     password: String,
     firstname: String,
     lastname: String,
-    aboutme: String
+    aboutme: String,
+    file:String
 });
 
 const userPost = new mongoose.Schema({
