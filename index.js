@@ -249,7 +249,12 @@ app.delete('/user/post/worker/delete/:email/:user/:jobTitle', async (req,res,nex
     res.status(200).send("Deleted")
 })
 //--------------------------------------------------------------------------------------------------------
-
+app.delete('/user/post/job/delete/:email/:user/:jobTitle', async (req,res,next) =>{
+    UserPost2.find({email: req.params.email,user:req.params.user,JobTitle: req.params.jobTitle}).deleteOne(function(err, data){
+        if(err) throw err;
+      }); 
+    res.status(200).send("Deleted")
+})
 
 const server = app.listen(process.env.PORT || 5000, function(){
     console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
