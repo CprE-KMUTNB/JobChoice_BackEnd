@@ -108,20 +108,6 @@ app.post('/user/update/:email', async (req,res) =>{
     }
 })
 //--------------------------------------------------------------------------------------------------------
-app.delete('/user/delete/:email', async (req,res,next) =>{
-    User.find({email: req.params.email}).deleteOne(function(err, data){
-        if(err) throw err;
-      }); 
-    res.status(200).send("Deleted")
-})
-//--------------------------------------------------------------------------------------------------------
-app.delete('/user/post/delete/:email/:title', async (req,res,next) =>{
-    UserPost.find({email: req.params.email,JobTitle: req.params.title}).deleteOne(function(err, data){
-        if(err) throw err;
-      }); 
-    res.status(200).send("Deleted")
-})
-//--------------------------------------------------------------------------------------------------------
 app.get('/user/get/:email', async (req,res,next) =>{
     let user = await User.findOne({email: req.params.email});
     res.status(200).send(user);
@@ -249,6 +235,27 @@ app.post("/user/post2", (req, res) => {
     myPost.save()
 })
 //--------------------------------------------------------------------------------------------------------
+app.delete('/user/delete/:email', async (req,res,next) =>{
+    User.find({email: req.params.email}).deleteOne(function(err, data){
+        if(err) throw err;
+      }); 
+    res.status(200).send("Deleted")
+})
+//--------------------------------------------------------------------------------------------------------
+app.delete('/user/post/worker/delete/:email/:user/:jobTitle', async (req,res,next) =>{
+    UserPost.find({email: req.params.email,user:req.params.user,JobTitle: req.params.jobTitle}).deleteOne(function(err, data){
+        if(err) throw err;
+      }); 
+    res.status(200).send("Deleted")
+})
+//--------------------------------------------------------------------------------------------------------
+app.delete('/user/post/job/delete/:email/:user/:jobTitle', async (req,res,next) =>{
+    UserPost2.find({email: req.params.email,user:req.params.user,JobTitle: req.params.jobTitle}).deleteOne(function(err, data){
+        if(err) throw err;
+      }); 
+    res.status(200).send("Deleted")
+})
+
 const server = app.listen(process.env.PORT || 5000, function(){
     console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
 });
