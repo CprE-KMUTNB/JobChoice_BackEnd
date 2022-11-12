@@ -41,7 +41,7 @@ app.post('/user/register', async(req,res) =>{
             firstname: createdUser.firstname,
             lastname: createdUser.lastname,
             aboutme: createdUser.aboutme,
-            file:createdUser.file
+            file: createdUser.file
             
         },
         'eyJ1c2VybmFtZSI6InRlc3QiLCJwYXNzd29yZCI6IjEyMzQiLCJmaXJzdG5hbWUiOiJNYWtrcmFwb25nIiwibGFzdG5hbWUiOiJTb21ib29uIiwiY29udHJhY3QiOiIwOTU5MjY5OTg2IiwiYWxnIjoiSFMyNTYifQ',
